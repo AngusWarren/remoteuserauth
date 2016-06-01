@@ -1,21 +1,23 @@
-JIRA 4.3+ with mod_auth_kerb SSO
+JIRA/Confluence with Kerberos SSO
 ================================
 Goal
 ----
-Users should transparently log in to JIRA with AD domain credentials.
+Users should transparently log in to JIRA/Confluence with AD domain credentials. 
 
 Overview
 --------
-Apache authenticates users using mod_auth_kerb and passes the authenticated username to JIRA through an AJP proxy. JIRA uses a custom Seraph filter which checks for the remote_user variable set by Apache and logs the user in automatically.
+Apache authenticates users using mod_auth_kerb and passes the authenticated username to JIRA/Confluence through an AJP proxy. JIRA/Confluence uses a custom Seraph filter which checks for the remote_user variable set by Apache and logs the user in automatically.
 
 Installation
-------------
+-----------
+### JIRA
 1. Install Jira using the standard install, listening on port 8080
    * Allow port 8080 through the firewall
 2. Setup LDAP user directory
    * Test logging in using your AD credentials
 3. Setup apache to act as a proxy to Jira using AJP
-   * Add this line to the server.xml (/opt/atlassian/jira/conf/server.xml) file, around line 64. It should end up below the existing "Connector" entry. 
+   * Add this line to the server.xml (/opt/atlassian/jira/conf/server.xml) file, around line 64. It should end up below the existing "Connector" entry.
+     
      ```xml
      <Connector port="8009" redirectPort="8443" enableLookups="false" protocol="AJP/1.3" URIEncoding="UTF-8" tomcatAuthentication="false"/>
      ```
@@ -26,6 +28,7 @@ Installation
 5. Add the jar file (RemoteUserJiraAuth-X.Y.jar) to the WEB-INF/lib/ directory (by default it's /opt/atlassian/jira/atlassian-jira/WEB-INF/lib/)
    * Ensure that you've removed any older versions which may exist.
 6. Edit WEB-INF/classes/seraph-config.xml and replace the existing authenticator with the custom one: 
+   
    ```xml
    Comment this out:
    <authenticator class="com.atlassian.jira.security.login.JiraSeraphAuthenticator"/>
@@ -34,6 +37,20 @@ Installation
    ```
 7. Restart JIRA and Apache
 8. Check to see if it is now working.
+
+### Confluence
+Use the JIRA instructions above with the following changes:
+
+1. Use the base path of your Confluence installation rather than JIRA. (/opt/atlassian/confluence by default) 
+2. If you're running both JIRA and Confluence on the same host, you'll need to use a different port for the AJP connector created in the server.xml file.
+3. When you're replacing the authenticator classname in WEB-INF/classes/seraph-config.xml, use these details instead:
+   
+   ```xml
+   Comment this out:
+   <authenticator class="com.atlassian.confluence.user.ConfluenceAuthenticator"/>
+   Add this below it:
+   <authenticator class="anguswarren.confluence.RemoteUserConfluenceAuth"/>
+   ```
 
 Notes
 -----
