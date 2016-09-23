@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>anguswarren.jira</groupId>
     <artifactId>RemoteUserJiraAuth</artifactId>
-    <version>1.1</version>
+    <version>1.2</version>
 
     <organization>
         <name>Angus Warren</name>
@@ -15,7 +15,7 @@
     </organization>
 
     <name>anguswarren.jira.RemoteUserJiraAuth</name>
-    <description>This is a custom Seraph filter developed by Angus Warren to authenticate based on the remote_user variable set by Apache</description>
+    <description>This is a custom Seraph filter which authenticates based on the remote_user variable set by Apache or an aribitrary HTTP header set by any web proxy.</description>
     <packaging>atlassian-plugin</packaging>
 
     <dependencies>
@@ -50,7 +50,7 @@
             <plugin>
                 <groupId>com.atlassian.maven.plugins</groupId>
                 <artifactId>maven-jira-plugin</artifactId>
-                <version>3.4</version>
+                <version>${amps.version}</version>
                 <extensions>true</extensions>
                 <configuration>
                     <productVersion>${jira.version}</productVersion>
@@ -69,6 +69,7 @@
 
     <properties>
         <jira.version>4.3.2</jira.version>
+        <amps.version>5.0.13</amps.version>
         <jira.data.version>4.3</jira.data.version>
     </properties>
 
