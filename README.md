@@ -8,6 +8,21 @@ Overview
 --------
 Apache authenticates users using mod_auth_kerb and passes the authenticated username to JIRA/Confluence through an AJP proxy. JIRA/Confluence uses a custom Seraph filter which checks for the remote_user variable set by Apache and logs the user in automatically.
 
+Build instructions
+------------------
+
+### Confluence
+1. Get [Java SDK](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+2. Get [atlassian SDK](https://developer.atlassian.com/server/framework/atlassian-sdk/set-up-the-atlassian-plugin-sdk-and-build-a-project/). following works on mac:
+
+    ```shell
+    brew tap atlassian/tap
+    brew install atlassian/tap/atlassian-plugin-sdk
+    atlas-version
+    ```
+3. Run command `atlas-package` in the RemoteUserConfluenceAuth` directory
+
+
 Installation
 -----------
 ### JIRA
