@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>anguswarren.confluence</groupId>
     <artifactId>RemoteUserConfluenceAuth</artifactId>
-    <version>1.3</version>
+    <version>1.4</version>
 
     <organization>
         <name>Angus Warren</name>
@@ -49,7 +49,7 @@
         </dependency>
             <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
+            <artifactId>javax.servlet-api</artifactId>
             <version>${javax.version}</version>
             <scope>provided</scope>
         </dependency>
@@ -71,15 +71,15 @@
     </build>
 
     <properties>
-        <confluence.version>6.6.0</confluence.version>
-        <confluence.data.version>6.6.0</confluence.data.version>
-        <amps.version>6.3.13</amps.version>
+        <confluence.version>6.7.1</confluence.version>
+        <confluence.data.version>6.7.1</confluence.data.version>
+        <amps.version>6.3.14</amps.version>
         <!-- This key is used to keep the consistency between the key in atlassian-plugin.xml and the key to generate bundle. -->
         <atlassian.plugin.key>${project.groupId}.${project.artifactId}</atlassian.plugin.key>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <javax.version>2.5</javax.version>
+        <javax.version>4.0.0</javax.version>
     </properties>
 
 </project>
