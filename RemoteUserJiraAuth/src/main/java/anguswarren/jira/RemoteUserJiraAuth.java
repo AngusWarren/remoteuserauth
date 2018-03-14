@@ -68,8 +68,15 @@ public class RemoteUserJiraAuth extends JiraSeraphAuthenticator {
                 }
 
                 if (remoteuser != null) {
-                    String[] username = remoteuser.split("@");
-                    user = getUser(username[0]);
+                    if (remoteuser.contains("@")) {
+			String[] username = remoteuser.split("@");
+			user = getUser(username[0]);
+		    } else if (remoteuser.contains("\\")) {
+			String[] username = remoteuser.split("\\\\");
+			user = getUser(username[1]);
+		    } else {
+			log.error("Username " + remoteuser + " does not contain '@' or '\\'");
+		    }
                     log.debug("Logging in with username: " + user);
                     request.getSession().setAttribute(JiraSeraphAuthenticator.LOGGED_IN_KEY, user);
                     request.getSession().setAttribute(JiraSeraphAuthenticator.LOGGED_OUT_KEY, null);
