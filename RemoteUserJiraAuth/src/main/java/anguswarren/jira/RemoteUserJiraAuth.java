@@ -40,6 +40,7 @@ public class RemoteUserJiraAuth extends JiraSeraphAuthenticator {
                 try {
                     InputStream iStream = ClassLoaderUtils.getResourceAsStream("RemoteUserJiraAuth.properties", this.getClass());
                     p.load(iStream);
+                    iStream.close();		
                 } catch (Exception e) {
                     log.debug("Exception loading propertie. The properties file is optional anyway, so this may not be an issues: " + e, e);
                 }
